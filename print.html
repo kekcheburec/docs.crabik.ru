@@ -1,0 +1,930 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Руководство для платы crabik</title>
+        
+        <meta name="robots" content="noindex" />
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="style/book.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="введение.html"><strong aria-hidden="true">1.</strong> Введение</a></li><li class="chapter-item expanded "><a href="инструкции_по_установке.html"><strong aria-hidden="true">2.</strong> Инструкции по установке</a></li><li class="chapter-item expanded "><a href="знакомство_с_crabik.html"><strong aria-hidden="true">3.</strong> Знакомство с crabik</a></li><li class="chapter-item expanded "><a href="hal.html"><strong aria-hidden="true">4.</strong> HAL</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="hal/немного_о_hal.html"><strong aria-hidden="true">4.1.</strong> Немного о HAL</a></li><li class="chapter-item expanded "><a href="hal/описание_частей_встроенной_программы.html"><strong aria-hidden="true">4.2.</strong> Описание частей встроенной программы</a></li><li class="chapter-item expanded "><a href="hal/привет_мир.html"><strong aria-hidden="true">4.3.</strong> Привет, мир!</a></li><li class="chapter-item expanded "><a href="hal/gpio.html"><strong aria-hidden="true">4.4.</strong> GPIO</a></li><li class="chapter-item expanded "><a href="hal/pwm.html"><strong aria-hidden="true">4.5.</strong> PWM (ШИМ)</a></li><li class="chapter-item expanded "><a href="hal/adc.html"><strong aria-hidden="true">4.6.</strong> ADC</a></li><li class="chapter-item expanded "><a href="hal/uart.html"><strong aria-hidden="true">4.7.</strong> UART</a></li><li class="chapter-item expanded "><a href="hal/spi.html"><strong aria-hidden="true">4.8.</strong> SPI</a></li><li class="chapter-item expanded "><a href="hal/twi.html"><strong aria-hidden="true">4.9.</strong> TWI (I2C)</a></li><li class="chapter-item expanded "><a href="hal/использование_периферии_в_модулях.html"><strong aria-hidden="true">4.10.</strong> Использование периферии в модулях</a></li></ol></li><li class="chapter-item expanded "><a href="rtic.html"><strong aria-hidden="true">5.</strong> RTIC (rtfm)</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Руководство для платы crabik</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="splash">
+   <img src="images/crabik-logo-full.svg" class="splogo" alt="Logo" height="110px"/>
+</div>
+<div class="drop"></div>
+<h2><a class="header" href="#Привет" id="Привет">Привет!</a></h2>
+<p>Это руководство предназначено для быстрого начала работы с платой <a href="https://crabik.ru">crabik</a> на Rust. Если вы впервые слышите про язык программирования Rust, то рекомендуем вам прочитать <a href="https://doc.rust-lang.ru/book/">Язык программирования Rust</a>, а так же изучить <a href="https://doc.rust-lang.ru/stable/rust-by-example/">Rust на примерах</a>.</p>
+<h2><a class="header" href="#Почему-rust" id="Почему-rust">Почему Rust?</a></h2>
+<p>В отличие от интерпретируемых языков таких как <a href="https://www.espruino.com/">JavaScript</a> и <a href="https://micropython.org/">Python</a>, Rust не нуждается в интерпретаторе, он компилируемый, поэтому вам доступно больше ресурсов микроконтроллера. А еще код написаный на Rust намного быстрее!</p>
+<p>В среде <a href="https://www.arduino.cc/">Arduino</a> используются языки C и C++. В отличие от C и C++, написание кода для микроконтроллера более простое и безопасное. Компилятор Rust при компиляции проверит ваш код на ошибки, и подскажет где в коде спряталась ошибка.</p>
+<h2><a class="header" href="#Список-используемых-компонентов" id="Список-используемых-компонентов">Список используемых компонентов</a></h2>
+<p>Для запуска некоторых примеров, можно докупить следующие компоненты:</p>
+<ul>
+<li><a href="https://amperka.ru/product/breadboard-half">Breadboard</a> и <a href="https://amperka.ru/product/jumper-wires">Набор перемычек</a></li>
+<li><a href="https://amperka.ru/product/big-tactile-button">Кнопка тактовая с колпачком</a></li>
+<li><a href="https://amperka.ru/product/troyka-usb-uart">USB-UART преобразователь (Troyka-модуль)</a></li>
+<li><a href="https://amperka.ru/product/troyka-oled">OLED-дисплей (Troyka-модуль)</a></li>
+</ul>
+<p>Эти компоненты не обязательны, можно изучить все примеры и без них, либо заменить на другие.</p>
+<blockquote>
+<p><strong>ПРИМЕЧАНИЕ</strong> Все команды Linux описаны для Ubuntu 18.04 и новее, а так же Debian Stretch и новее. В других дистрибутивах Linux команды и названия пакетов могут отличатся.</p>
+</blockquote>
+<h2><a class="header" href="#Настройка-нструментария-rust" id="Настройка-нструментария-rust">Настройка нструментария Rust</a></h2>
+<p>Мы рекомендуем использовать <a href="https://rustup.rs">Rustup</a>, чтобы легко установить последнюю стабильную версию Rust.
+Перейдите на <a href="https://rustup.rs">https://rustup.rs</a> и следуйте инструкциям.</p>
+<blockquote>
+<p><strong>Пользователи Windows:</strong> Нужно установить дополнителный пакет <a href="https://visualstudio.microsoft.com/ru/visual-cpp-build-tools/">Microsoft C++ Build Tools</a>.</p>
+</blockquote>
+<blockquote>
+<p><strong>Обновление компилятора и его компонентов:</strong> Если у вас уже установлен Rust, убедитесь, что вы используете последнюю версию, запустите <code>rustup update</code> в терминале.</p>
+</blockquote>
+<p>Мы рекомендуем использовать стабильную версию копилятора, так как ночные сборки Rust часто ломаются.</p>
+<blockquote>
+<p><strong>Использование стабильной версии копилятора:</strong> Rustup можно настроить по умолчанию на стабильную версию компилятора, запустите <code>rustup default stable</code> в терминале.</p>
+</blockquote>
+<p>Чтобы компилировать код для платы crabik, нужно добавить поддержку архитектуры Cortex-M4 и утилит для анализа скомпилированой программы, запустите в терминале:</p>
+<pre><code class="language-console">rustup target add thumbv7em-none-eabi
+rustup component add llvm-tools-preview
+</code></pre>
+<blockquote>
+<p><strong>Наличие Git:</strong> Если у вас не установлен Git, то вам нужно его установить для дальнейшей работы с Cargo. Для установки перейдите на страницу <a href="https://git-scm.com/book/ru/v2/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5-%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-Git">Установка Git</a> и следуйте инструкциям для установки под вашу ОС.</p>
+</blockquote>
+<p>Так же нужно установить утилиты и дополнения для сборщика Cargo.
+Они нужны для быстрого создания проекта из шаблона, простой загрузки программы, а так же анализа скомпилированной программы.
+Запустите в терминале:</p>
+<blockquote>
+<p><strong>ПРИМЕЧАНИЕ</strong> Если вы используете Linux, то запустите в терминале <code>sudo apt-get install libudev-dev libusb-1.0-0-dev</code> для установки библиотеки <code>libusb</code>.</p>
+</blockquote>
+<pre><code class="language-console">cargo install cargo-binutils probe-run flip-link cargo-embed cargo-flash cargo-generate
+</code></pre>
+<h2><a class="header" href="#Установка-инструментов-отладки" id="Установка-инструментов-отладки">Установка инструментов отладки</a></h2>
+<h3><a class="header" href="#Инструкция-для-windows" id="Инструкция-для-windows">Инструкция для Windows</a></h3>
+<p>ARM предоставляет Набор инструментов GNU, в готовом установщике для Windows.
+Скачайте установщик <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">GNU Arm Embedded Toolchain</a> и следуйте инструкциям.
+Незадолго до завершения процесса установки выберите опцию &quot;Add path to environment variable&quot;.
+Затем убедитесь, что инструменты находятся в вашем <code>%PATH%</code>, запустите в терминале:</p>
+<pre><code class="language-console">arm-none-eabi-gcc -v
+</code></pre>
+<p>Если вы увидели информацию о версии, то Набор инструментов GNU установлен.</p>
+<!-- TODO: Сделать простой установщик OpenOCD -->
+<p>Для отладки нам понадобится OpenOCD.
+Официальной версии OpenOCD для Windows нет, но вы можете скачать <a href="https://github.com/xpack-dev-tools/openocd-xpack/releases">xPack OpenOCD</a>.
+Извлеките zip архив по пути <code>C:\OpenOCD-0.10</code>, затем добавте в переменную <code>%PATH%</code> путь <code>C:\OpenOCD-0.10\bin</code>.
+Проверьте правильность установки, запустив в терминале:</p>
+<pre><code class="language-console">openocd -v
+</code></pre>
+<p>Если вы увидели информацию о версии, то OpenOCD установлен.</p>
+<h3><a class="header" href="#Инструкция-для-linux" id="Инструкция-для-linux">Инструкция для Linux</a></h3>
+<p>Установите GNU Arm Embedded Toolchain и OpenOCD, запустив в терминале:</p>
+<pre><code class="language-console">sudo apt-get install gdb-multiarch openocd
+</code></pre>
+<!-- TODO: Дописать добавление правил для отладчика (udev rules) -->
+<h3><a class="header" href="#Инструкция-для-macos" id="Инструкция-для-macos">Инструкция для macOS</a></h3>
+<p>Все инструменты можно установить с помощью <a href="https://brew.sh/">Homebrew</a>.</p>
+<p>Добавте хранилище пакетов ArmMbed, запустив в терминале:</p>
+<pre><code class="language-console">brew tap ArmMbed/homebrew-formulae
+</code></pre>
+<p>Установите GNU Arm Embedded Toolchain, запустив в терминале:</p>
+<pre><code class="language-console">brew install arm-none-eabi-gcc
+</code></pre>
+<p>Установите OpenOCD, запустив в терминале:</p>
+<pre><code class="language-console">brew install openocd
+</code></pre>
+<h2><a class="header" href="#Установка-vs-code-и-расширений" id="Установка-vs-code-и-расширений">Установка VS Code и расширений</a></h2>
+<p>Для написания кода мы будем использовать редактор кода VS Code, в нем хорошо работает Rust Analyzer, а так же он прост в изучении и настройке.</p>
+<p><strong>Установка под Windows:</strong> Перейдите на <a href="https://code.visualstudio.com">https://code.visualstudio.com</a> и нажмите &quot;Download for Windows&quot;.</p>
+<p><strong>Установка под Linux:</strong> Cледуйте инструкциям для вашего дистрибутива на <a href="https://code.visualstudio.com/docs/setup/linux">https://code.visualstudio.com/docs/setup/linux</a>.</p>
+<p><strong>Установка под macOS:</strong> Перейдите на <a href="https://code.visualstudio.com">https://code.visualstudio.com</a> и нажмите &quot;Download for Mac&quot;.</p>
+<p>После установки редактора, нужно установить расширения для удобной работы с Rust, конфигурацией проекта и отладки кода. Запустите следующие команды в терминале:</p>
+<pre><code class="language-console">code --install-extension matklad.rust-analyzer
+code --install-extension bungcip.better-toml
+code --install-extension marus25.cortex-debug
+</code></pre>
+<h1><a class="header" href="#Знакомство-с-crabik" id="Знакомство-с-crabik">Знакомство с crabik</a></h1>
+<p>Данное руководсво написано для платы crabik, поэтому самое время изучить подробнее саму плату.</p>
+<p>Cхема распиновки платы:</p>
+<p><img src="images/crabik_pinout.png" alt="Схема распиновки платы crabik" /></p>
+<p>Плата питается от USB-C или от напряжения поданого на вход контакта <code>VCC</code>.
+Контакт <code>3.3v</code> при отсутствии какого либо напряжения может принимать 3.3 вольта, либо если плата запитана от какого либо источника, выдает 3.3 вольта.
+Максимально допустимый ток от контакта <code>3.3v</code> - 400mA.</p>
+<p>Мозгом платы является микроконтроллер <a href="https://www.nordicsemi.com/Products/Low-power-short-range-wireless/nRF52810">nRF52810</a> компании Nordic Semiconductor.
+Внутри него ядро Arm Cortex-M4, работающее на частоте 64Mhz.</p>
+<p>Периферия может быть настроена на любой вывод микроконтроллера, исключением является <code>ADC</code>, входом которого могут быть только пины с <code>A0</code> по <code>A3</code>.</p>
+<p>Светодиод на плате подключен к выводу <code>11</code>. Кнопка рядом с выводами <code>7</code> и <code>8</code>, это Reset (сброс микроконтроллера).</p>
+<p>Для загрузки программы на микроконтроллер используется отдельная микросхема отладки совместимая с протоколом CMSIS-DAP v1.
+При использовании внешнего отладчика, отключите внутренний, перерезав перемычку <code>Debug ON</code>.
+Для востановления работы внутреннего отладчика, запаяйте перемычку.
+Так же для меньшего потребления в режиме сна, рекомендуется отключать внешний отладчик.</p>
+<h1><a class="header" href="#hal" id="hal">HAL</a></h1>
+<h1><a class="header" href="#Немного-о-hal" id="Немного-о-hal">Немного о HAL</a></h1>
+<p>HAL - это Уровень аппаратной абстракции для встраеваемых систем.</p>
+<p>В Rust сообществе используется библеотека <code>embedded-hal</code>.
+Она предоставляет абстракции для взаимодействия модуля периферии конкретного микроконтроллера и модуля использующей периферию (например библеотека работы с дисплеем по SPI).
+Это позволяет написать один модуль, и использовать его на разных платах.
+Идея похожа на Arduino.</p>
+<p>Так же следует знать немного о PAC.
+Это модуль предоставляющий удобное взаимодействие с регистрами периферии конкретного микроконтроллера.
+Модули PAC генерируются автоматически из файла SVD для каждого микроконтроллера.
+Эти модули используются в <code>hal</code> для конкретного микроконтроллера.</p>
+<p>Для удобства модуль <code>crabik-board</code> содержит в себе модули <code>nrf52810-hal</code> и <code>nrf52810-pac</code>.
+Вы можете использовать их импортируя по пути <code>crabik_board::hal</code> и <code>crabik_board::pac</code>.</p>
+<p>Документация по модулю <code>nrf52810-hal</code> доступна на <a href="https://docs.rs/nrf52810-hal/0.12.1/nrf52810_hal/">docs.rs</a></p>
+<h2><a class="header" href="#Описание-частей-встроенной-программы" id="Описание-частей-встроенной-программы">Описание частей встроенной программы</a></h2>
+<p>Мы расмотрим элементы встроенной программы на Rust, которых нет в обычной программе для компьютера.</p>
+<p>Для начала создайте новый проект из шаблона, запустите в терминале:</p>
+<pre><code class="language-console">cargo generate --git https://github.com/CrabikBoards/crabik-app-template.git --name hello-crabik
+</code></pre>
+<p>И откройте созданный проект в VS Code (<code>File &gt; Open Folder</code> в меню VS Code), далее откройте файл <code>main.rs</code> в папке <code>src</code>.</p>
+<h2><a class="header" href="#В-файле-вы-увидите-следующие-новые-элементы" id="В-файле-вы-увидите-следующие-новые-элементы">В файле вы увидите следующие новые элементы:</a></h2>
+<h3><a class="header" href="#no_std" id="no_std"><code>#![no_std]</code></a></h3>
+<p>Атрибут <code>#![no_std]</code> указывает, что программа не будет использовать модуль <code>std</code>, используемый при написании програм для ПК.
+Вместо этого он будет использовать модуль <code>core</code>, подмножество стандартного модуля, которая не зависит от операционной системы (ОС).</p>
+<h3><a class="header" href="#no_main" id="no_main"><code>#![no_main]</code></a></h3>
+<p>Атрибут <code>#![no_main]</code> указывает, что программа будет использовать пользовательскую &quot;точку старта&quot; вместо точки по умолчанию <code>fn main() {..}</code>.</p>
+<h3><a class="header" href="#cortex_m_rtentry" id="cortex_m_rtentry"><code>#[cortex_m_rt::entry]</code></a></h3>
+<p>Макрос <code>#[cortex_m_rt::entry]</code> добавляет к ниженаписанной функции <code>main</code> минимальный код необходимый для работы программы, создавая тем самым &quot;точку старта&quot;.
+Функция не может возвращать какое либо значение и не может завершится, поэтому в конце функции есть вызов <code>crabik_board::exit()</code> которая безопасно &quot;завершает&quot; программу (по факту являясь безконечным циклом).</p>
+<h2><a class="header" href="#Привет-мир" id="Привет-мир">Привет, мир!</a></h2>
+<p>Пришло время написать код на Rust для crabik!
+Для начала создайте новый проект из шаблона, запустите в терминале:</p>
+<pre><code class="language-console">cargo generate --git https://github.com/CrabikBoards/crabik-app-template.git --name hello-crabik
+</code></pre>
+<p>Начнем с открытия ранее созданного проекта, откройте его в VS Code (<code>File &gt; Open Folder</code> в меню VS Code), далее откройте файл <code>main.rs</code> в папке <code>src</code>.
+В файле вы увидите следующий код:</p>
+<pre><pre class="playground"><code class="language-rust">// Файл с основным кодом программы
+
+#![no_main] // отключение стандартной &quot;точки старта&quot; от компилятора
+#![no_std] // отключение стандартной библиотеки
+
+use crabik_board::{
+    hal::{delay::*, gpio::*, prelude::*, Clocks},
+    pac::Peripherals,
+    CrabikPins, Logger,
+}; // импорт библеотеки для платы crabik
+use rtt_target::*; // импорт библеотеки для работы с протоколом RTT
+
+#[cortex_m_rt::entry] // макрос предоставляющий &quot;точку старта&quot;
+fn main() -&gt; ! {
+    rtt_init_print!(BlockIfFull, 16384); // инициализация канала RTT и настройка его на печать
+
+    let periph = Peripherals::take().expect(&quot;Не удалось получить доступ к периферии микроконтроллера&quot;); // Получение всей периферии микроконтроллера
+    let core_periph = cortex_m::Peripherals::take().expect(&quot;Не удалось получить доступ к периферии ядра&quot;); // Получение всей периферии ядра Cortex-M
+
+    log::set_logger(&amp;Logger).expect(&quot;Не удалось установить логгер&quot;); // Установка логгера (обертки поверх RTT)
+    log::set_max_level(log::LevelFilter::Info); // Установка фильтра логов по умолчанию на Info (Информационные сообщения)
+
+    let clocks = Clocks::new(periph.CLOCK); // передача &quot;часов&quot; микроконтроллера для настройки
+    let clocks = clocks.enable_ext_hfosc(); // использовать внешний источник (кварц) для тактирования микроконтроллера
+    let clocks = clocks.set_lfclk_src_rc(); // использовать внутренний источник (кварц) для тактирования Rtc (часов)
+
+    // Здесь пишем наш код
+
+    crabik_board::exit(); // завершение программы (просто бесконечный цикл)
+}
+
+</code></pre></pre>
+<p>Как видите, код имеет много коментариев и можно поверхностно понять что делаяет каждая строка.
+В приведенном выше коде происходит получение всей периферии, настройка логирования и настройка тактирования микроконтроллера.</p>
+<p>Добавьте после комментария <code>// Здесь пишем наш код</code>, строчку <code>rprintln!(&quot;Привет, мир!&quot;);</code>.</p>
+<p>В итоге, у вас должен получится следующий код:</p>
+<pre><pre class="playground"><code class="language-rust">// Файл с основным кодом программы
+
+#![no_main] // отключение стандартной &quot;точки старта&quot; от компилятора
+#![no_std] // отключение стандартной библиотеки
+
+use crabik_board::{
+    hal::{delay::*, gpio::*, prelude::*, Clocks},
+    pac::Peripherals,
+    CrabikPins, Logger,
+}; // импорт библеотеки для платы crabik
+use rtt_target::*; // импорт библеотеки для работы с протоколом RTT
+
+#[cortex_m_rt::entry] // макрос предоставляющий &quot;точку старта&quot;
+fn main() -&gt; ! {
+    rtt_init_print!(BlockIfFull, 16384); // инициализация канала RTT и настройка его на печать
+
+    let periph = Peripherals::take().expect(&quot;Не удалось получить доступ к периферии микроконтроллера&quot;); // Получение всей периферии микроконтроллера
+    let core_periph = cortex_m::Peripherals::take().expect(&quot;Не удалось получить доступ к периферии ядра&quot;); // Получение всей периферии ядра Cortex-M
+
+    log::set_logger(&amp;Logger).expect(&quot;Не удалось установить логгер&quot;); // Установка логгера (обертки поверх RTT)
+    log::set_max_level(log::LevelFilter::Info); // Установка фильтра логов по умолчанию на Info (Информационные сообщения)
+
+    let clocks = Clocks::new(periph.CLOCK); // передача &quot;часов&quot; микроконтроллера для настройки
+    let clocks = clocks.enable_ext_hfosc(); // использовать внешний источник (кварц) для тактирования микроконтроллера
+    let clocks = clocks.set_lfclk_src_rc(); // использовать внутренний источник (кварц) для тактирования Rtc (часов)
+
+    rprintln!(&quot;Привет, мир!&quot;);
+
+    crabik_board::exit(); // завершение программы (просто бесконечный цикл)
+}
+</code></pre></pre>
+<p>В шаблоне проекта уже содержатся настройки для простого запуска программы.
+Вам нужно только подключить плату к компьютеру и запустить в терминале:</p>
+<pre><code class="language-console">cargo run
+</code></pre>
+<p>Но для удобной и быстрой разработки рекомендуется использовать для запуска команду:</p>
+<pre><code class="language-console">cargo embed --release
+</code></pre>
+<p>В терминале вы увидите текст: <code>Привет, мир!</code>.</p>
+<h1><a class="header" href="#Работа-с-gpio" id="Работа-с-gpio">Работа с GPIO</a></h1>
+<p>Теперь пора подключить кнопку к плате и заставить светодиод мигать.</p>
+<p>Начнем с мигания светодиодом.
+Добавьте модули <code>delay</code> и <code>gpio</code> в импорт <code>crabik_board::hal</code>.
+В созданном проекте напишите следующий код:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Разделение GPIO на отдельные пины
+let port0 = gpio::p0::Parts::new(periph.P0);
+// Создание &quot;задержки&quot;
+let mut delay = delay::Delay::new(core_periph.SYST);
+// Макрос который переименовывает пины микроконтроллера в названия пинов на плате
+let pins = crabik_board::rename_pins!(port0);
+// Переводит пин 11 в режим выхода
+let mut led = pins.d11.into_push_pull_output(gpio::Level::Low);
+
+loop {
+    // Устанавливает высокий уровень на пине
+    led.set_high().unwrap();
+    // Задержка на 1 секунду
+    delay.delay_ms(1_000_u32);
+    // Устанавливает низкий уровень на пине
+    led.set_low().unwrap();
+    // Задержка на 1 секунду
+    delay.delay_ms(1_000_u32);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Далеее разберемся что именно делает этот фрагмент кода:</p>
+<ul>
+<li>Строчка <code>let port0 = p0::Parts::new(periph.P0);</code>.Тут мы передаем переферию GPIO для разделения на отдельные пины (в микроконтроллерах пины обычно представлены портом, через него можно управлять множеством пинов сразу, для удобства использования порты разделяют на отдельные пины).</li>
+<li>Строчка <code>let mut delay = Delay::new(core_periph.SYST);</code>. Тут мы передаем системный таймер SysTick в структуру Delay. Delay использует данный таймер для точного отсчета задержки.</li>
+<li>Строчка <code>let pins = crabik_board::rename_pins!(port0);</code>. Тут мы передаем уже разделенные пины макросу, который из названия пина например <code>p0_01</code>, сделает его <code>d11</code>. Можно его не использовать, но тогда нужно смотреть на схему платы для того что-бы узнать название пина.</li>
+<li>Строчка <code>let mut led = pins.d11.into_push_pull_output(Level::Low);</code>. Тут мы переводим пин <code>11</code> в режим вывода с подтяжкой к земле.</li>
+<li>Далее идет идет бесконечный цикл. В нем мы мигаем светодиодом.</li>
+</ul>
+<p>Теперь можно добавить нашу кнопку.
+Подключим кнопку к выводу <code>A0</code>.
+После строки где мы переводили пин <code>11</code> в режим вывода, добавте строку:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Переводит пин A0 в режим входа с подтяжкой к 3.3 вольтам
+let button = pins.a0.into_pullup_input();
+<span class="boring">}
+</span></code></pre></pre>
+<p>И измените цикл на:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>loop {
+    // Если кнопка нажата то включаем светодиод
+    if button.is_low().unwrap() {
+        led.set_high().unwrap();
+    } else {
+        led.set_low().unwrap();
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>В итоге у нас получилась программа которая включает светодиод если на пине <code>A0</code> низкий уровень (кнопка нажата).</p>
+<h1><a class="header" href="#Работа-с-pwm-ШИМ" id="Работа-с-pwm-ШИМ">Работа с PWM (ШИМ)</a></h1>
+<p>Просто мигать светодиодом быстро надоест, поэтому сейчас мы будем менять его яркость.
+Изменять яркость можно с помощью PWM.</p>
+<p>В проект добавте модули <code>gpio</code> и <code>pwm</code> в импорт <code>crabik_board::hal</code>.
+Напишите следующий код:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Разделение GPIO на отдельные пины
+let port0 = gpio::p0::Parts::new(periph.P0);
+// Создание &quot;задержки&quot;
+let mut delay = delay::Delay::new(core_periph.SYST);
+// Макрос который переименовывает пины микроконтроллера в названия пинов на плате
+let pins = crabik_board::rename_pins!(port0);
+// Переводит пин 11 в режим выхода
+let led = pins.d11.into_push_pull_output(gpio::Level::Low).degrade();
+// Переводит пин A0 в режим входа
+let button = pins.a0.into_pullup_input();
+
+// Подготовка к работе PWM
+let pwm = pwm::Pwm::new(periph.PWM0);
+pwm.set_period(1_000u32.hz()) // устанавливает выходную частоту PWM
+    .set_output_pin(pwm::Channel::C0, &amp;led) // связывает пин с каналом PWM
+    .enable(); // включает генератор PWM
+
+// Устанавливает максимальное значение цикла
+pwm.set_max_duty(255);
+let mut led_brightness: u8 = 0;
+
+loop {
+    if button.is_low().unwrap() {
+        led_brightness += 10;
+        // Устанавливаем сколько вывод должен быть включен
+        pwm.set_duty_off(pwm::Channel::C0, led_brightness as u16);
+    }
+    delay.delay_ms(100u32);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Описанный выше код устанавливает максимальное значение цикла PWM, в цикле опрашивает кнопку, если кнопка нажата, то увеличиваем значение яркости светодиода, и задаем значение PWM.
+Когда переменная <code>led_brightness</code> доходит до значения 255, она переполняется и становится снова 0.</p>
+<p>Следующий пример покажет как плавно увеличивать и уменьшать яркость светодиода.
+После строк настройки PWM измените код на:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Устанавливает максимальное значение цикла
+pwm.set_max_duty(255);
+
+let mut up = true;
+let mut n = 0;
+let mut delay_change = 10;
+
+loop {
+    delay.delay_ms(delay_change);
+    if up {
+        n += 1;
+        if n &gt;= pwm.max_duty() {
+            up = false
+        }
+    } else {
+        n -= 1;
+        if n &lt;= 0 {
+            up = true
+        }
+    }
+
+    pwm.set_duty_off(pwm::Channel::C0, n);
+
+    // Неравномерная задержка
+    delay_change = (200 / (n + 4)) + 1;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h1><a class="header" href="#Работа-с-adc" id="Работа-с-adc">Работа с ADC</a></h1>
+<p>Для оцифровки аналоговых значений у nRF52 есть SAADC (ADC).
+Самое время его изучить. </p>
+<p>С SAADC могут работать только пины с <code>A0</code> по <code>A3</code>.</p>
+<p>В проект добавте модули <code>gpio</code> и <code>saadc</code> в импорт <code>crabik_board::hal</code>.
+Напишите следующий код:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Разделение GPIO на отдельные пины
+let port0 = gpio::p0::Parts::new(periph.P0);
+// Макрос который переименовывает пины микроконтроллера в названия пинов на плате
+let pins = crabik_board::rename_pins!(port0);
+
+// Подготовка пинов
+let mut an_in = pins.a0.into_floating_input();
+
+// Подготовка к работе SAADC
+let mut adc = saadc::Saadc::new(periph.SAADC, saadc::SaadcConfig::default());
+
+// Измеряет напряжение с длительностью указанной в конфигурации SAADC, по умолчанию это 20 микросекунд
+let value = adc.read(&amp;mut an_in).expect(&quot;Не удалось считать напряжение с пина&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<p>В показаном выше примере мы настраиваем пины и сам SAADC.
+После настройки SAADC, производим измерение напряжения на пине <code>A0</code>.</p>
+<h1><a class="header" href="#Работа-с-uart" id="Работа-с-uart">Работа с UART</a></h1>
+<p>Работать только с кнопками и светодиодами не очень интересно.
+К плате можно подключать различные сенсоры и прочее.
+Для общения с ними может понадобится UART, SPI, TWI (I2C).
+Начнем с UART.</p>
+<p>В проект добавте модули <code>gpio</code> и <code>uarte</code> в импорт <code>crabik_board::hal</code>.
+Напишите следующий код:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Разделение GPIO на отдельные пины
+let port0 = gpio::p0::Parts::new(periph.P0);
+// Макрос который переименовывает пины микроконтроллера в названия пинов на плате
+let pins = crabik_board::rename_pins!(port0);
+
+// Подготовка пинов
+let rxd = pins.d9.into_floating_input().degrade();
+let txd = pins.d10.into_push_pull_output(gpio::Level::Low).degrade();
+
+// Подготовка к работе UART
+let mut uart = uarte::Uarte::new(
+    periph.UARTE0,
+    uarte::Pins {
+        rxd: rxd,
+        txd: txd,
+        cts: None,
+        rts: None,
+    },
+    uarte::Parity::EXCLUDED,
+    uarte::Baudrate::BAUD115200,
+);
+
+// Создание буферов для передачи и приема данных
+let mut tx_buffer = [0u8; 255];
+let mut rx_buffer = [0u8; 255];
+
+// Отправка &quot;сырых&quot; данных
+let data = b&quot;Hello!\n&quot;;
+// Копируем все данные в буфер, что бы EasyDMA работал с оперативной памятью, а не с флешем
+tx_buffer[0..data.len()].copy_from_slice(data);
+uart.write(&amp;tx_buffer).expect(&quot;Не удалось передать данные&quot;);
+
+// Прием &quot;сырых&quot; данных
+uart.read(&amp;mut rx_buffer).expect(&quot;Не удалось получить данные&quot;);
+
+
+// // Отправка &quot;сырых&quot; данных
+// let data = b&quot;Hello!\n&quot;;
+// // Копируем все данные в буфер, что бы EasyDMA работал с оперативной памятью, а не с флешем
+// let buf = &amp;mut [0; 255][..];
+// for block in data.chunks(255) {
+//     buf[..block.len()].copy_from_slice(block);
+//     uart.write(&amp;buf[..block.len()]).expect(&quot;Не удалось передать данные&quot;);
+// }
+
+// // Прием &quot;сырых&quot; данных
+// let mut buffer = [0u8; 255];
+// uart.read(&amp;mut buffer).expect(&quot;Не удалось получить данные&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<p>В показаном выше примере настраиваются пины TX и RX, и сам UART.
+После настройки UART мы оправляем и принимаем &quot;сырые&quot; байты.</p>
+<p>Отправлять текст в UART удобнее через модуль <code>fmt</code> библеотеки <code>core</code>.
+Добавьте импорт <code>core::fmt::Write</code>, и можете использовать вместо <code>uart.write</code> следующий код:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Запись в UART форматированной строки
+let number = 321;
+writeln!(uart, &quot;Пример форматированого вывода, number = {}&quot;, number).expect(&quot;Не удалось передать данные&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<h1><a class="header" href="#Работа-с-spi" id="Работа-с-spi">Работа с SPI</a></h1>
+<p>Для работы с дисплеями или быстрыми сенсорами не очень удобно использовать UART, для этого использую SPI.
+Самое время его изучить. </p>
+<p>У nRF52 SPI разделен на две части - это SPIM и SPIS:</p>
+<ul>
+<li>SPIM - это SPI работающий в роли мастера, подходит для управлением разными устройствами по SPI.</li>
+<li>SPIS - это SPI подходящий для работы в роли например сенсора, оно общается с мастером но не управляет обменом информацией.</li>
+</ul>
+<p>В проект добавте модули <code>gpio</code> , <code>spim</code> или <code>spis</code> в импорт <code>crabik_board::hal</code>.
+Частоиспользуемый режим - SPI мастер, поэтому примеры далее будут про <code>spim</code> модуль.
+Напишите следующий код:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Разделение GPIO на отдельные пины
+let port0 = gpio::p0::Parts::new(periph.P0);
+// Макрос который переименовывает пины микроконтроллера в названия пинов на плате
+let pins = crabik_board::rename_pins!(port0);
+
+// Подготовка пинов
+let clk = pins.d9.into_push_pull_output(gpio::Level::Low).degrade();
+let mosi = pins.d10.into_push_pull_output(gpio::Level::Low).degrade();
+let miso = pins.d11.into_floating_input().degrade();
+let cs = pins.d12.into_push_pull_output(gpio::Level::Low).degrade();
+
+// Подготовка к работе SPI мастера
+let mut spi = spim::Spim::new(
+    periph.SPIM0,
+    spim::Pins {
+        sck: clk,
+        miso: Some(miso),
+        mosi: Some(mosi),
+    },
+    spim::Frequency::M1,
+    spim::MODE_0,
+    0,
+);
+
+// Создание буферов для передачи и приема данных
+let mut tx_buffer = [0u8; 255];
+let mut rx_buffer = [0u8; 255];
+
+let data = b&quot;Hello!\n&quot;;
+// Копируем все данные в буфер, что бы EasyDMA работал с оперативной памятью, а не с флешем
+tx_buffer[0..data.len()].copy_from_slice(data);
+
+// Передача и прием данных
+spi.transfer_split_uneven(&amp;mut cs, &amp;tx_buffer, &amp;mut rx_buffer)
+    .expect(&quot;Не удалось передать или получить данные&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<p>В показаном выше примере мы настраиваем пины и сам SPI.
+После настройки SPI отправляем и принимаем &quot;сырые&quot; байты.</p>
+<h1><a class="header" href="#Работа-с-twi-i2c" id="Работа-с-twi-i2c">Работа с TWI (I2C)</a></h1>
+<p>Для работы с большим количеством устройств придумали I2C.
+У nRF52 I2C называется TWI. 
+Самое время его изучить. </p>
+<p>У nRF52 TWI разделен на две части - это TWIM и TWIS:</p>
+<ul>
+<li>TWIM - это TWI работающий в роли мастера, подходит для управлением разными устройствами.</li>
+<li>TWIS - это TWI подходящий для работы в роли например сенсора, оно общается с мастером но не управляет обменом информацией.</li>
+</ul>
+<p>В проект добавте модули <code>gpio</code> , <code>twim</code> или <code>twis</code> в импорт <code>crabik_board::hal</code>.
+Частоиспользуемый режим - TWI мастер, поэтому примеры далее будут про <code>twim</code> модуль.
+Напишите следующий код:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Разделение GPIO на отдельные пины
+let port0 = gpio::p0::Parts::new(periph.P0);
+// Макрос который переименовывает пины микроконтроллера в названия пинов на плате
+let pins = crabik_board::rename_pins!(port0);
+
+// Подготовка пинов
+let scl = pins.d9.into_floating_input().degrade();
+let sda = pins.d10.into_floating_input().degrade();
+
+// Подготовка к работе TWI мастера
+let mut i2c = twim::Twim::new(
+    periph.TWIM0, 
+    twim::Pins { scl, sda }, 
+    twim::Frequency::K100
+);
+
+// Создание буферов для передачи и приема данных
+let mut tx_buffer = [0u8; 255];
+let mut rx_buffer = [0u8; 255];
+
+let data = [1, 2, 3, 4, 5, 6, 7, 8];
+// Копируем все данные в буфер, что бы EasyDMA работал с оперативной памятью, а не с флешем
+tx_buffer[0..data.len()].copy_from_slice(&amp;data);
+
+// Передача данных на устройство по адресу 0x90
+i2c.write(0x90, &amp;tx_buffer)
+    .expect(&quot;Не удалось передать данные на устройство по адресу 0x90&quot;);
+
+// Прием данных от устройства по адресу 0x90
+i2c.read(0x90, &amp;mut rx_buffer)
+    .expect(&quot;Не удалось получить данные от устройства по адресу 0x90&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<p>В показаном выше примере настраиваются пины и сам TWI.
+После настройки TWI мы отправляем и принимаем &quot;сырые&quot; байты по адресу 0x90.</p>
+<h1><a class="header" href="#Использование-периферии-в-модулях" id="Использование-периферии-в-модулях">Использование периферии в модулях</a></h1>
+<p>Изучив отдельно настройку и использование периферии микроконтроллера, можно её использовать для работы с устройством.
+Для примера возьмем дисплей и кнопку.
+Для работы с дисплеем будем использовать уже написаный модуль.
+А для кнопки напишем свой, чтобы немного понять как использовать <code>hal</code> со стороны модуля.</p>
+<p>Добавьте модуль <code>ssd1306</code> в зависимости созданого проекта.
+Например это можно сделать добавив <code>ssd1306 = &quot;0.5.1&quot;</code> в раздел <code>dependencies</code> файла <code>Cargo.toml</code>.
+Таким же образом добавьте модули <code>embedded-graphics = &quot;0.6.2&quot;</code> и <code>heapless = &quot;0.6.1&quot;</code>.</p>
+<p>Модуль (драйвер) <a href="https://docs.rs/ssd1306/0.5.1/ssd1306/">ssd1306</a> отвечает за общение с дисплеем. 
+Модуль <a href="https://docs.rs/embedded-graphics/0.6.2/embedded_graphics/">embedded-graphics</a> предоставляет функционал для работы с графикой. Рисование фигур, картинок, текста разных стилей.
+Вы легко сможете поменять драйвер дисплея, сильно не меняя код отвечающий за рисование графики.
+Модуль <a href="https://docs.rs/heapless/0.6.1/heapless/">heapless</a> предоставляет различные структуры данных которые не используют динамическе выделение памяти.</p>
+<p>Перед написанием самой программы, создадим наш учебный модуль для кнопки.
+В папке с проектом, запустите в терминале:</p>
+<pre><code class="language-console">cargo new button --lib
+</code></pre>
+<p>И в зависимости проета добавьте <code>button = {path = &quot;./button&quot;}</code>.
+В зависимости созданного модуля добавьте <code>embedded-hal = &quot;0.2.4&quot;</code>.</p>
+<p>После того как все зависимости добавлены, можно писать код.
+Напишите следующий код в файле <code>src/lib.rs</code> модуля <code>button</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Файл с основным кодом модуля
+
+// Отключение стандартной библиотеки
+#![no_std]
+
+// Импорт трейта для пина входа
+use embedded_hal::digital::v2::InputPin;
+
+///
+/// Мини релизация кнопки
+///
+pub struct Button&lt;PIN&gt;
+where
+    PIN: InputPin,
+{
+    button_pin: PIN,
+    value: u32,
+}
+
+impl&lt;PIN, PinE&gt; Button&lt;PIN&gt;
+where
+    PIN: InputPin&lt;Error = PinE&gt;,
+{
+    ///
+    /// Создает новый экземпляр драйвера
+    ///
+    /// # Аргументы
+    ///
+    /// * `button_pin` - пин к которому подключена кнопка
+    ///
+    pub fn new(button_pin: PIN) -&gt; Self {
+        Self { button_pin, value: 0 }
+    }
+
+    ///
+    /// Считывает состояние и возвращает кол-во нажатий
+    ///
+    pub fn tick(&amp;mut self) -&gt; Result&lt;u32, PinE&gt; {
+        if self.button_pin.is_low()? {
+            self.value += 1;
+        }
+
+        Ok(self.value)
+    }
+
+    ///
+    /// Освобождаем пин кнопки
+    ///
+    pub fn release(self) -&gt; PIN {
+        self.button_pin
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Написанный выше код имеет:</p>
+<ul>
+<li>Функцию <code>new</code> для создания нового экземпляра драйвера. Функция принимает все что реализует фукционал <code>InputPin</code>. В документации по <code>embedded-hal</code> содержится больше информации об использовании различной периферии в модулях. Документация по модулю <code>embedded-hal</code> доступна на <a href="https://docs.rs/embedded-hal/0.2.4/embedded_hal/">docs.rs</a>.</li>
+<li>Функцию <code>tick</code>, где получаем значение пина к которому подключена кнопка, если кнопка нажата, то увеличиваем внутреннюю переменную на 1. Возвращает кол-во нажатий.</li>
+<li>Функцию <code>release</code> для освобождения переданной драйверу периферии. У большинства драйверов для работы с каким-либо устройством, имеется похожая функция.</li>
+</ul>
+<p>Напишем следующий код в файле самого проекта:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Разделение GPIO на отдельные пины
+let port0 = gpio::p0::Parts::new(periph.P0);
+// Создание &quot;задержки&quot;
+let mut delay = delay::Delay::new(core_periph.SYST);
+// Макрос который переименовывает пины микроконтроллера в названия пинов на плате
+let pins = crabik_board::rename_pins!(port0);
+
+// Подготовка пинов
+let scl = pins.d9.into_floating_input().degrade();
+let sda = pins.d10.into_floating_input().degrade();
+
+// Подготовка к работе TWI мастера
+let i2c = twim::Twim::new(periph.TWIM0, twim::Pins { scl, sda }, twim::Frequency::K400);
+
+// Создание экземпляра кнопки и передача пина к которому подключена кнопка
+let mut button = button::Button::new(pins.a0.into_pullup_input());
+
+// Прослойка отправки команд для дисплея через I2C
+// Это нужно т.к. контроллер дисплея может работать как по I2C так и по SPI
+let interface = I2CDIBuilder::new().init(i2c);
+// Соединение и подготовка к работе дисплея
+let mut display: GraphicsMode&lt;_, _&gt; = Builder::new().connect(interface).into();
+display.init().expect(&quot;Не удалось подготовить к работе дисплей&quot;);
+
+// Создание стиля текста
+let text_style = TextStyleBuilder::new(Font6x8)
+    .text_color(BinaryColor::On)
+    .background_color(BinaryColor::Off)
+    .build();
+
+// Создание фиксированого размера строки, для работы без динамического выделения памяти
+let mut text = heapless::String::&lt;consts::U20&gt;::new();
+
+loop {
+    // Отчищаем строку от предыдущего значения
+    text.clear();
+
+    // Записываем новое значение в строку
+    write!(
+        &amp;mut text,
+        &quot;Сlicks: {}&quot;,
+        button.tick().expect(&quot;Не удалось получить значение нажатий&quot;)
+    )
+    .expect(&quot;Не удалось записать данные&quot;);
+
+    // Отрисовываем текст
+    Text::new(text.as_str(), Point::zero())
+        .into_styled(text_style)
+        .draw(&amp;mut display)
+        .expect(&quot;Не удалось отрисовать на дисплее&quot;);
+
+    // Передаем все что отрисовали на дисплей
+    display.flush().expect(&quot;Не удалось обновить дисплей&quot;);
+
+    delay.delay_ms(100u32);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>В показанном выше примере мы выводим на дисплей кол-во нажатий кнопки.</p>
+<h1><a class="header" href="#rtic-rtfm" id="rtic-rtfm">RTIC (rtfm)</a></h1>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="style/book.js"></script>
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
