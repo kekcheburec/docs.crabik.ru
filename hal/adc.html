@@ -165,7 +165,7 @@
 <p>Для оцифровки аналоговых значений у nRF52 есть SAADC (ADC).
 Самое время его изучить. </p>
 <p>С SAADC могут работать только пины с <code>A0</code> по <code>A3</code>.</p>
-<p>В проект добавте модули <code>gpio</code> и <code>saadc</code> в импорт <code>crabik_board::hal</code>.
+<p>В проект добавьте модули <code>gpio</code> и <code>saadc</code> в импорт <code>crabik_board::hal</code>.
 Напишите следующий код:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -185,7 +185,7 @@ let mut adc = saadc::Saadc::new(periph.SAADC, saadc::SaadcConfig::default());
 let value = adc.read(&amp;mut an_in).expect(&quot;Не удалось считать напряжение с пина&quot;);
 <span class="boring">}
 </span></code></pre></pre>
-<p>В показаном выше примере мы настраиваем пины и сам SAADC.
+<p>В показанном выше примере мы настраиваем пины и сам SAADC.
 После настройки SAADC, производим измерение напряжения на пине <code>A0</code>.</p>
 
                     </main>
