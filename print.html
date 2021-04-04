@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="введение.html"><strong aria-hidden="true">1.</strong> Введение</a></li><li class="chapter-item expanded "><a href="инструкции_по_установке.html"><strong aria-hidden="true">2.</strong> Инструкции по установке</a></li><li class="chapter-item expanded "><a href="знакомство_с_crabik.html"><strong aria-hidden="true">3.</strong> Знакомство с crabik</a></li><li class="chapter-item expanded "><a href="hal.html"><strong aria-hidden="true">4.</strong> HAL</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="hal/немного_о_hal.html"><strong aria-hidden="true">4.1.</strong> Немного о HAL</a></li><li class="chapter-item expanded "><a href="hal/описание_частей_встроенной_программы.html"><strong aria-hidden="true">4.2.</strong> Описание частей встроенной программы</a></li><li class="chapter-item expanded "><a href="hal/привет_мир.html"><strong aria-hidden="true">4.3.</strong> Привет, мир!</a></li><li class="chapter-item expanded "><a href="hal/gpio.html"><strong aria-hidden="true">4.4.</strong> GPIO</a></li><li class="chapter-item expanded "><a href="hal/pwm.html"><strong aria-hidden="true">4.5.</strong> PWM (ШИМ)</a></li><li class="chapter-item expanded "><a href="hal/adc.html"><strong aria-hidden="true">4.6.</strong> ADC</a></li><li class="chapter-item expanded "><a href="hal/uart.html"><strong aria-hidden="true">4.7.</strong> UART</a></li><li class="chapter-item expanded "><a href="hal/spi.html"><strong aria-hidden="true">4.8.</strong> SPI</a></li><li class="chapter-item expanded "><a href="hal/twi.html"><strong aria-hidden="true">4.9.</strong> TWI (I2C)</a></li><li class="chapter-item expanded "><a href="hal/использование_периферии_в_модулях.html"><strong aria-hidden="true">4.10.</strong> Использование периферии в модулях</a></li></ol></li><li class="chapter-item expanded "><a href="rtic.html"><strong aria-hidden="true">5.</strong> RTIC (rtfm)</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="введение.html"><strong aria-hidden="true">1.</strong> Введение</a></li><li class="chapter-item expanded "><a href="инструкции_по_установке.html"><strong aria-hidden="true">2.</strong> Инструкции по установке</a></li><li class="chapter-item expanded "><a href="знакомство_с_crabik.html"><strong aria-hidden="true">3.</strong> Знакомство с crabik</a></li><li class="chapter-item expanded "><a href="hal.html"><strong aria-hidden="true">4.</strong> HAL</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="hal/немного_о_hal.html"><strong aria-hidden="true">4.1.</strong> Немного о HAL</a></li><li class="chapter-item expanded "><a href="hal/описание_частей_встроенной_программы.html"><strong aria-hidden="true">4.2.</strong> Описание частей встроенной программы</a></li><li class="chapter-item expanded "><a href="hal/привет_мир.html"><strong aria-hidden="true">4.3.</strong> Привет, мир!</a></li><li class="chapter-item expanded "><a href="hal/gpio.html"><strong aria-hidden="true">4.4.</strong> GPIO</a></li><li class="chapter-item expanded "><a href="hal/pwm.html"><strong aria-hidden="true">4.5.</strong> PWM (ШИМ)</a></li><li class="chapter-item expanded "><a href="hal/adc.html"><strong aria-hidden="true">4.6.</strong> ADC</a></li><li class="chapter-item expanded "><a href="hal/uart.html"><strong aria-hidden="true">4.7.</strong> UART</a></li><li class="chapter-item expanded "><a href="hal/spi.html"><strong aria-hidden="true">4.8.</strong> SPI</a></li><li class="chapter-item expanded "><a href="hal/twi.html"><strong aria-hidden="true">4.9.</strong> TWI (I2C)</a></li><li class="chapter-item expanded "><a href="hal/использование_периферии_в_модулях.html"><strong aria-hidden="true">4.10.</strong> Использование периферии в модулях</a></li></ol></li><li class="chapter-item expanded "><a href="немного_о_rtic.html"><strong aria-hidden="true">5.</strong> Немного о RTIC(rtfm)</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -903,7 +903,59 @@ loop {
 <span class="boring">}
 </span></code></pre></pre>
 <p>В показанном выше примере мы выводим на дисплей кол-во нажатий кнопки.</p>
-<h1><a class="header" href="#rtic-rtfm" id="rtic-rtfm">RTIC (rtfm)</a></h1>
+<h1><a class="header" href="#Немного-о-rtic" id="Немного-о-rtic">Немного о RTIC</a></h1>
+<p>Real-Time Interrupt-driven Concurrency (RTIC) - конкурентный фреймворк для создания систем реального времени.</p>
+<h2><a class="header" href="#Возможности" id="Возможности">Возможности</a></h2>
+<ul>
+<li>
+<p><strong>Задачи</strong> - единица конкуренции. Задачи могут <em>запускаться по событию</em>
+(в ответ на асинхронный стимул) или вызываться программно по желанию.</p>
+</li>
+<li>
+<p><strong>Передача сообщений</strong> между задачами. А именно, сообщения можно передавать
+программным задачам в момент вызова.</p>
+</li>
+<li>
+<p><strong>Очередь таймера</strong>. Программные задачи можно планировать на запуск в
+определенный момент в будущем. Это свойство можно использовать, чтобы
+реализовывать периодические задачи.</p>
+</li>
+<li>
+<p>Поддержка приоритетов задач, и таким образом, <strong>вытесняющей многозадачности</strong>.</p>
+</li>
+<li>
+<p><strong>Эффективное, свободное от гонок данных разделение памяти</strong> через хорошо
+разграниченные критические секции на <em>основе приоритетов</em>.</p>
+</li>
+<li>
+<p><strong>Выполнение без взаимной блокировки задач</strong>, гарантированное на этапе
+компиляции. Это более сильная гарантия, чем предоставляемая
+<a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html">стандартной абстракцией <code>Mutex</code></a>.</p>
+</li>
+<li>
+<p><strong>Минимальные затраты на диспетчеризацию</strong>. Диспетчер задач имеет
+минимальный след; основная часть работы по диспетчеризации делается аппаратно.</p>
+</li>
+<li>
+<p><strong>Высокоэффективное использование памяти</strong>: Все задачи используют общий стек
+вызовов и нет сильной зависимости от динамического распределителя памяти.</p>
+</li>
+<li>
+<p><strong>Все устройства Cortex-M полностью поддерживаются</strong>.</p>
+</li>
+<li>
+<p>Эта модель задач поддается известному анализу методом WCET (наихудшего
+времени исполнения) и техникам анализа диспетчеризации. (Хотя мы еще не
+разработали для дружественных инструментов для этого).</p>
+</li>
+</ul>
+<h2><a class="header" href="#Создание-проекта-с-rtic" id="Создание-проекта-с-rtic">Создание проекта с RTIC</a></h2>
+<p>В шаблоне уже имеется пример с RTIC для crabik, просто запустите в терминале:</p>
+<pre><code class="language-console">cargo generate --git https://github.com/CrabikBoards/crabik-app-template.git --name crabik-rtic
+</code></pre>
+<p>При создании проекта у вас спросят <code>Создать с использованием библеотеки RTIC?</code>, по умолчанию ответ <code>false</code>, будет создан обычный проект который создавали ранее, если ответить <code>true</code>, то будет создан проект с использованием RTIC.</p>
+<h3><a class="header" href="#a-hrefhttpsgithubcomrtic-rscortex-m-rtictreev056examplesПримерыa" id="a-hrefhttpsgithubcomrtic-rscortex-m-rtictreev056examplesПримерыa"><a href="https://github.com/rtic-rs/cortex-m-rtic/tree/v0.5.6/examples">Примеры</a></a></h3>
+<h3><a class="header" href="#a-hrefhttpsrticrs05bookenПолное-руководство-доступно-на-Английскомa" id="a-hrefhttpsrticrs05bookenПолное-руководство-доступно-на-Английскомa"><a href="https://rtic.rs/0.5/book/en/">Полное руководство доступно на Английском</a></a></h3>
 
                     </main>
 
